@@ -1,15 +1,35 @@
 import json
 import requests
 
-with open("data.json", "w") as f:
-    data = requests.get('https://www.beatsavior.io/api/livescores/player/3032736043471367').json()
-    json.dump(data, f, indent=4)
-    
-variable = requests.get('https://jsonplaceholder.typicode.com/todos/1').json()
+async def choice():
+	c = input('Would you like to use ScoreSaber or BeatSavior. Please type carefully.')
+	if c == 'ScoreSaber':
+		scoresaber()
+	if c == 'BeatSavior':
+		beatsavior()
 
-with open("data.json", "r") as f:
+async def beatsavior():
+	uid = int(input('Insert your ScoreSaber ID: \n'))
+
+	with open("data.json", "w") as f:
+    	data = requests.get(f'https://www.beatsavior.io/api/livescores/player/{uid}').json()
+    	json.dump(data, f, indent=4)
+
+	with open("data.json", "r") as f:
         data = json.load(f)
 
 
-for data in data[0:5]:
+	for data in data[0:5]:
+		print('Name: \''+data['songName']+'\' Difficulty: \''+data['songDifficulty']+'\'')
+
+async def scoresaber():
+	uid = int(input('Insert your ScoreSaber ID: \n'))
+
+	with open("data.json", "w") as f:
+    	data = requests.get(f'https://new.scoresaber.com/api/player/{uid}/full').json()
+    	json.dump(data, f, indent=4)
+
+	with open("data.json", "r") as f:
+        data = json.load(f)
+	
 	print('Name: \''+data['songName']+'\' Difficulty: \''+data['songDifficulty']+'\'')
