@@ -1,5 +1,6 @@
 import json
 import requests
+from pprint import pprint
 
 def choice():
 	c = input('Would you like to use ScoreSaber or BeatSavior. Please type carefully. \n')
@@ -31,6 +32,6 @@ def scoresaber():
 	with open("data.json", "r") as f:
 		data = json.load(f)
 	
-	print(f"Name: {data['playerInfo']['playerName']} Rank: {+data['playerInfo']['rank']}")
+	pprint(data)
 
 choice()
